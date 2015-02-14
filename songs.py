@@ -2,6 +2,16 @@
 import time
 import pyautogui
 
+# On the harp:
+# 1 = C
+# 2 = D
+# 3 = E
+# 4 = F
+# 5 = G
+# 6 = A
+# 7 = B
+# 8 = C
+
 class Conductor:
 
     octave_map = {
@@ -17,6 +27,7 @@ class Conductor:
             ',': 1/4,
             ':': 1/8,
             '"': 1/16,
+            '!': 1/32,
             }
 
     current_interval = 1/4
@@ -52,9 +63,10 @@ class Conductor:
 
     def _PlayChord(self):
         notes = [self._ConvertToNote(int(c)) for c in self.chord_stack]
-        pyautogui.press(tuple(notes))
+        pyautogui.hotkey(*notes)
         self.chord_stack = []
         self._Wait()
+        self.in_chord = False
 
     def _PlayNote(self, n):
         pyautogui.press(self._ConvertToNote(n))
@@ -124,4 +136,37 @@ def FF9YouAreNotAlone():
 def GoTTheme(): # to be fixed
     c = Conductor(60)
     song = '513451342472347321'
+    c.Play(song)
+
+def EarthGodLyric():
+    c = Conductor(60)
+    song = '5 <135> (13 21) 7 <468> 64 8686 <457> 54 8 <46> 7 <358> (23 12)'
+    song += '<135> 5 <135> (13 21) 7 <468> 64 8686 <257> 8 <57>( 342) 78 <358>'
+    c.Play(song)
+
+def CorridorsOfTime():
+    c = Conductor(60)
+    song = '1367(3) 367(2) 367(3) 367'
+    song += '1367(3) 367(2) 367(3) 367'
+    song += '1367(3) 367(2) 367(3) 367'
+    song += '1367(3) 367(2) 367(3) 367'
+    song += '4 <62> <62> <52> <52> 567876 <53> <53> <42> <42>'
+    song += '4 <62> <62> <52> <52> 456 7 <62> <62> <75> <75>'
+    song += '5 61456 7 8 <75>'
+    song += '25678 7 <75> <63> <63>'
+    c.Play(song)
+
+def MonkeyIslandTheme():
+    c = Conductor(50)
+    song = '   (:<42>"<42>! "<42>! : "<42>! "<42>! : "<31>! "<31>! : "<42>! "<42>! : "<42>! "<42>! '
+    song += ': "<31>! "<31>! : "<42>! "<42>!'
+    song += ':2"2432:1,2: 1")876(2:1" :1" ,)7: (:2" :2" 432:1,2:2" 3:4" :4" ,5'
+    song += ':3" 43213:4" :4" ,3:2" 43213:4" :4" ,3:2" 432:12" :2" ,2: 2)"8768:7" :7" ,6'
+    song += '. :68(8,4,4"8768:74,4:) ,6(:4511" 56545:<46><34>" :<24>)6" ,6'
+    song += ':34"5375(3)7(53)75(3)7(5374:<42>2" :2" 4:3" :4" 3424)'
+    song += '"4[7]42747(2)74(2)7(4247'
+    song += ':13" :3" 3:2" :3" 23:1'
+    song += ':2" 2432:1" ,2:) 8"8768:7" :7" ,6:( :2" :2" 432:1,2:2" 3:4" :4" ,5'
+    song += ':3" 43213:4" :4" ,3:2" 43213:4" :4" ,3:2" 432:12" :2" ,2:) 8"76:7'
+    song += '6,( :2" :2" 432:1222" 45435423.2)'
     c.Play(song)
